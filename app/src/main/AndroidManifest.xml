@@ -1,4 +1,4 @@
-<manifest package="com.github.andyken.divideddraggableview"
+<manifest package="com.github.andyken.divideddraggableview.sample"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application
@@ -7,6 +7,15 @@
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
+
+		<activity android:name="com.andyken.divideddraggableview.SampleActivity"
+		          android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
 
 	</application>
 

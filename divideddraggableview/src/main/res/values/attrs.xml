@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="DividedDraggableView">
+		<attr name="rowHeight" format="dimension"/>
+		<attr name="itemWidth" format="dimension"/>
+		<attr name="itemHeight" format="dimension"/>
+		<attr name="yPadding" format="dimension"/>
+		<attr name="usingGroup" format="boolean"/>
+		<attr name="groupLineCount" format="integer"/>
+		<attr name="groupItemCount" format="integer"/>
+		<attr name="groupGap" format="dimension"/>
+		<attr name="bgColor" format="color"/>
+		<attr name="groupBgColor" format="color"/>
+		<attr name="gapColor" format="color"/>
+		<attr name="textInGapColor" format="color"/>
+		<attr name="textInGap" format="string"/>
+	</declare-styleable>
+</resources>
