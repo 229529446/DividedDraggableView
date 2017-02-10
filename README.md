@@ -9,8 +9,8 @@ Draggable grid view with divided line.
 You should new the DividedDraggableView and setItemCount,then add your view by calling addChildView.
 
     DividedDraggableView dividedDraggableView = new DividedDraggableView(SampleActivity.this);
-    		dividedDraggableView.setItemCount(mockViews.size());
-    		for (ImageView imageView : mockViews) {
-    			dividedDraggableView.addChildView(imageView);
-    		}
-    		rootView.addView(dividedDraggableView);
+    dividedDraggableView.setItemCount(mockViews.size());
+    for (ImageView imageView : mockViews) {
+        dividedDraggableView.addChildView(imageView);
+    }
+    rootView.addView(dividedDraggableView);
