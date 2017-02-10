@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by hzfengyuexin on 17/2/10.
  */
 
-public class DividedDraggableView extends ScrollView {
+public class DividedDraggableView extends ScrollView{
 
 	private RelativeLayout rootView;
 	private AttributeSet attributeSet;

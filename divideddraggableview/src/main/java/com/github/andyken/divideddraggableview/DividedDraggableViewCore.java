@@ -422,6 +422,10 @@ public class DividedDraggableViewCore extends LinearLayout implements View.OnTou
 		return childCount;
 	}
 
+	public int getDraggedIndex() {
+		return draggedIndex;
+	}
+
 	public List<View> getChildList() {
 		return childList;
 	}
