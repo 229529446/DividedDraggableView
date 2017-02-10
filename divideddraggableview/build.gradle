@@ -23,7 +23,7 @@ android {
 
 ext {
 	bintrayRepo = 'maven'
-	bintrayName = 'moneytextview'
+	bintrayName = 'divideddraggableview'
 
 	publishedGroupId = 'com.github.andyken'
 	libraryName = 'divideddraggableview'
