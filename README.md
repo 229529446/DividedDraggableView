@@ -7,7 +7,7 @@ Draggable grid view with divided line.
 ## Usage
 Add the dependency to your build.gradle.
 
-    compile 'com.github.andyken:divideddraggableview:1.1'
+    compile 'com.github.andyken:divideddraggableview:1.2'
 
 ## Usage
 

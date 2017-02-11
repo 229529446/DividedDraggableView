@@ -34,7 +34,7 @@ ext {
 	siteUrl = 'https://github.com/andyken/DividedDraggableView'
 	gitUrl = 'https://github.com/andyken/DividedDraggableView.git'
 
-	libraryVersion = '1.1'
+	libraryVersion = '1.2'
 
 	developerId = 'andyken'
 	developerName = 'YueXin Feng'
