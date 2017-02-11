@@ -27,7 +27,7 @@ public class DividedDraggableView extends ScrollView{
 	private int bgColor, gapColor, textInGapColor, groupBgColor;
 	private String textInGap;
 	private int itemCount;
-	private int yPadding;//the y-axis padding of the item
+	private int rowPadding;//the y-axis padding of the item
 	private int rowHeight, itemWidth, itemHeight, colCount;
 	private boolean usingGroup = false;
 	private int groupGap, groupLineCount, groupItemCount;
@@ -58,6 +58,26 @@ public class DividedDraggableView extends ScrollView{
 		init();
 	}
 
+	public DividedDraggableView(Builder builder) {
+		super(builder.context);
+		initView();
+		this.rowHeight = builder.rowHeight > 0 ? builder.rowHeight : DEFAULT_ROW_HEIGHT;
+		this.itemWidth = builder.itemWidth > 0 ? builder.itemWidth : DEFAULT_ITEM_WIDTH;
+		this.itemHeight = builder.itemHeight > 0 ? builder.itemHeight : DEFAULT_ITEM_HEIGHT;
+		this.rowPadding = builder.yPadding > 0 ? builder.yPadding : DEFAULT_Y_PADDING;
+		this.usingGroup = builder.usingGroup;
+		this.groupGap = builder.groupGap > 0 ? builder.groupGap : DEFAULT_GROUP_GAP;
+		this.groupLineCount = builder.groupLineCount > 0 ? builder.groupLineCount : DEFAULT_GROUP_LINE_COUNT;
+		this.groupItemCount = builder.groupItemCount > 0 ? builder.groupItemCount : DEFAULT_GROUP_ITEM_COUNT;
+		colCount = groupItemCount / groupLineCount;
+		this.bgColor = builder.bgColor > 0 ? builder.bgColor : DEFAULT_BG_COLOR;
+		this.gapColor = builder.gapColor > 0 ? builder.gapColor : DEFAULT_GAP_COLOR;
+		this.textInGapColor = builder.textInGapColor > 0 ? builder.textInGapColor : DEFAULT_TEXT_IN_GAP_COLOR;
+		this.groupBgColor = builder.groupBgColor > 0 ? builder.groupBgColor : DEFAULT_GROUP_BG_COLOR;
+		this.textInGap = !TextUtils.isEmpty(builder.textInGap) ? builder.textInGap : DEFAULT_TEXT_IN_GAP;
+		initEventListener();
+	}
+
 	private void init() {
 		initView();
 		initAttributes();
@@ -70,7 +90,7 @@ public class DividedDraggableView extends ScrollView{
 			rowHeight = (int) typedArray.getDimension(R.styleable.DividedDraggableView_rowHeight, dp2px(DEFAULT_ROW_HEIGHT));
 			itemWidth = (int) typedArray.getDimension(R.styleable.DividedDraggableView_itemWidth, dp2px(DEFAULT_ITEM_WIDTH));
 			itemHeight = (int) typedArray.getDimension(R.styleable.DividedDraggableView_itemHeight, dp2px(DEFAULT_ITEM_HEIGHT));
-			yPadding = (int) typedArray.getDimension(R.styleable.DividedDraggableView_yPadding, dp2px(DEFAULT_Y_PADDING));//20dp
+			rowPadding = (int) typedArray.getDimension(R.styleable.DividedDraggableView_yPadding, dp2px(DEFAULT_Y_PADDING));//20dp
 			usingGroup = typedArray.getBoolean(R.styleable.DividedDraggableView_usingGroup, DEFAULT_USING_GROUP);
 			groupGap = (int) typedArray.getDimension(R.styleable.DividedDraggableView_groupGap, dp2px(DEFAULT_GROUP_GAP));//35dp
 			groupLineCount = typedArray.getInteger(R.styleable.DividedDraggableView_groupLineCount, DEFAULT_GROUP_LINE_COUNT);
@@ -149,7 +169,7 @@ public class DividedDraggableView extends ScrollView{
 			rowCount = (int) Math.ceil((double) itemCount / colCount);
 		}
 		//每个分组区域高度为 每行高度*行数 + 每行间隔高度*（行数+1) 这里 两行存在三个每行间隔高度
-		int groupHeight = rowHeight * DEFAULT_GROUP_LINE_COUNT + yPadding * (DEFAULT_GROUP_LINE_COUNT + 1);
+		int groupHeight = rowHeight * DEFAULT_GROUP_LINE_COUNT + rowPadding * (DEFAULT_GROUP_LINE_COUNT + 1);
 		int pageLineHeight = groupGap;//“第一页 第二页” 所在行的line的高度
 		ArrayList<Integer> topMarginArray = new ArrayList<>();//“第一页 第二页” 所在行距离顶部的margin集合
 		//add 分组间隔区域
@@ -162,7 +182,7 @@ public class DividedDraggableView extends ScrollView{
 				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, pageLineHeight);
 				//每个间隔分组区域 距离顶部的距离 i为分组间隔区域个数
 				//分组间隔区域个数*间隔区域高度 + 分组间隔区域个数*（分组中的行数*行高+（分组中的行数+1)*行间隔）两行存在三个行间隔
-				int topMargin = i * groupGap + (i * (DEFAULT_GROUP_LINE_COUNT * rowHeight + (DEFAULT_GROUP_LINE_COUNT + 1) * yPadding));
+				int topMargin = i * groupGap + (i * (DEFAULT_GROUP_LINE_COUNT * rowHeight + (DEFAULT_GROUP_LINE_COUNT + 1) * rowPadding));
 				topMarginArray.add(topMargin);
 				params.setMargins(0, topMargin, 0, 0);
 //				params.addRule(RelativeLayout.BELOW, R.id.categorySort_actionBar);
@@ -185,13 +205,13 @@ public class DividedDraggableView extends ScrollView{
 //		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
 //				rowheight * rowCount + groupGap + rowPadding * groupCount + rowCount * rowPadding + groupCount * groupGap);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-				groupGap * groupCount + yPadding * groupCount + rowHeight * rowCount + yPadding * rowCount);
+				groupGap * groupCount + rowPadding * groupCount + rowHeight * rowCount + rowPadding * rowCount);
 //		layoutParams.addRule(RelativeLayout.BELOW, R.id.categorySort_actionBar);
 		dividedDraggableViewCore.setLayoutParams(layoutParams);
 		dividedDraggableViewCore.setItemHeight(rowHeight);
 		dividedDraggableViewCore.setItemWidth(itemWidth);
 		dividedDraggableViewCore.setColCount(colCount);
-		dividedDraggableViewCore.setyPadding(yPadding);
+		dividedDraggableViewCore.setyPadding(rowPadding);
 		dividedDraggableViewCore.setGroupGap(groupGap);
 		dividedDraggableViewCore.setUsingGroup(true);
 		dividedDraggableViewCore.setGroupLineCount(groupLineCount);
@@ -243,5 +263,92 @@ public class DividedDraggableView extends ScrollView{
 	public int dp2px(double dp) {
 		float density = getContext().getResources().getDisplayMetrics().density;
 		return (int) (dp * density + 0.5);
+	}
+
+	public static class Builder{
+		private Context context;
+		private int rowHeight;
+		private int itemWidth;
+		private int itemHeight;
+		private int yPadding;
+		private boolean usingGroup = DEFAULT_USING_GROUP;
+		private int groupGap;
+		private int groupLineCount;
+		private int groupItemCount;
+		private int bgColor;
+		private int gapColor;
+		private int textInGapColor;
+		private int groupBgColor;
+		private String textInGap;
+
+		public Builder setRowHeight(Context context) {
+			this.context = context;
+			return this;
+		}
+
+		public Builder setRowHeight(int rowHeight) {
+			this.rowHeight = rowHeight;
+			return this;
+		}
+
+		public Builder setItemWidth(int itemWidth) {
+			this.itemWidth = itemWidth;
+			return this;
+		}
+
+		public Builder setItemHeight(int itemHeight) {
+			this.itemHeight = itemHeight;
+			return this;
+		}
+
+		public Builder setyPadding(int yPadding) {
+			this.yPadding = yPadding;
+			return this;
+		}
+
+		public Builder setUsingGroup(boolean usingGroup) {
+			this.usingGroup = usingGroup;
+			return this;
+		}
+
+		public Builder setGroupGap(int groupGap) {
+			this.groupGap = groupGap;
+			return this;
+		}
+
+		public Builder setGroupLineCount(int groupLineCount) {
+			this.groupLineCount = groupLineCount;
+			return this;
+		}
+
+		public Builder setGroupItemCount(int groupItemCount) {
+			this.groupItemCount = groupItemCount;
+			return this;
+		}
+
+		public Builder setBgColor(int bgColor) {
+			this.bgColor = bgColor;
+			return this;
+		}
+
+		public Builder setGapColor(int gapColor) {
+			this.gapColor = gapColor;
+			return this;
+		}
+
+		public Builder setTextInGapColor(int textInGapColor) {
+			this.textInGapColor = textInGapColor;
+			return this;
+		}
+
+		public Builder setGroupBgColor(int groupBgColor) {
+			this.groupBgColor = groupBgColor;
+			return this;
+		}
+
+		public Builder setTextInGap(String textInGap) {
+			this.textInGap = textInGap;
+			return this;
+		}
 	}
 }
