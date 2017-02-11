@@ -20,7 +20,7 @@ You should new the DividedDraggableView and setItemCount,then add your view by c
     }
     rootView.addView(dividedDraggableView);
 
-You can set the attributes at xml or by using DividedDraggableView.Builder.
-You can set the attributes such as rowHeight,itemWidth,itemHeight,rowPadding.
-You can set the gap between group,group line count,group item count.text in group.
-You can set some color attributes like background color,gap color,group color,the color of text in gap.
+- you can set the attributes at xml or by using DividedDraggableView.Builder.
+- you can set the attributes such as rowHeight,itemWidth,itemHeight,rowPadding.
+- you can set the gap between group,group line count,group item count.text in group.
+- you can set some color attributes like background color,gap color,group color,the color of text in gap.
